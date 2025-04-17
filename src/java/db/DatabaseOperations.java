@@ -1,3 +1,6 @@
+package db;
+
+import db.AlunoEntityManager;
 import java.util.List;
 
 import jakarta.faces.application.FacesMessage;
@@ -63,7 +66,7 @@ public class DatabaseOperations {
         }
         
         if(isAlunoId(alunoId)){
-            Query queryObj = entityManager.createQuery("UPDATE AlunoEntityManager s SET s.name=:name WHERE s.id=:id");
+            Query queryObj = entityManager.createQuery("UPDATE AlunoEntityManager s SET s.nome=:nome WHERE s.id=:id");
             queryObj.setParameter("id", alunoId);
             queryObj.setParameter("nome", atualizarNomeAluno);
             int updateCount = queryObj.executeUpdate();            

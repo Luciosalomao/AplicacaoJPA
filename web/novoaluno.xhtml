@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html">
+    <h:head>
+        <title>Cadastrar Novo Aluno</title>
+    </h:head>
+    <h:body>
+        <center><h2><h:outputText value="Cadastrar novo aluno"/></h2></center>
+        <h:form>
+            <br/><br/>
+            <h:outputText value="ID: [Não se preocupe com o id, ele é gerado automaticamente pelo sistema]"/>
+            <br/><br/>
+            <h:outputLabel value="Digite o nome do aluno: "/>
+            <br/><br/>
+            <h:inputText value="#{alunoBean.nome}" required="true" requiredMessage="Informe o nome do aluno" />
+            <br/><br/>
+            <h:commandButton value="Gravar" action="#{alunoBean.cadastrarNovoAluno(alunoBean)}"/>
+            <br/><br/>
+            <h:outputLink value="listaalunos.xhtml">Ver lista de alunos</h:outputLink>
+        </h:form>
+    </h:body>
+</html>

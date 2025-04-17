@@ -1,9 +1,17 @@
 package bean;
 
+import db.DatabaseOperations;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Named;
+import java.util.List;
+
 /**
  *
  * @author lucio.souza
  */
+@Named("alunoBean")
+@RequestScoped
 public class AlunoBean {
     private int id;
     private String nome;
@@ -33,5 +41,24 @@ public class AlunoBean {
         this.editIdAluno = editIdAluno;
     }
     
+    public List listaAlunosDB() {
+        return DatabaseOperations.getDetalhesAlunos();
+    }
     
+    public String cadastrarNovoAluno(AlunoBean alunoBean){
+        return DatabaseOperations.cadastraNovoAluno(alunoBean.getNome());
+    }
+    
+    public String deletaAlunoPeloId(int alunoId){
+        return DatabaseOperations.deleteAluno(alunoId);
+    }
+    
+    public String atualizarAluno(AlunoBean alunoBean){
+        return DatabaseOperations.atualizarDadosAluno(Integer.parseInt(alunoBean.getEditIdAluno()), alunoBean.getNome());
+    }
+    
+    public String editarAlunoPeloId(){
+        editIdAluno = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("SELECT *FROM ALUNO;");
+        return "editaraluno.xhtml";
+    }
 }

@@ -1,11 +1,34 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="jakarta.faces.html">
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Alunos Cadastrados</title>
     </h:head>
     <h:body>
-        Hello from Facelets
+        <center><h2>..:: Alunos Cadastrados ::..</h2></center>
+  
+        <h:form>
+            <h:dataTable value="#{alunoBean.listaAlunosDB()}" var="aluno">
+                <h:column>
+                    <h:outputText value="#{aluno.id}"/>
+                </h:column>
+                <h:column>
+                    <h:outputText value="#{aluno.nome}"/>
+                </h:column>
+                <h:column>
+                    <h:commandButton action="#(alunoBean.editarAlunoPeloId()" value="Atualizar">
+                        <f:param value="#{aluno.id}"/>
+                    </h:commandButton>
+                </h:column>
+                <h:column>
+                    <h:commandButton action="#{alunoBean.deletaAlunoPeloId(aluno.id)}" value="Apagar Registro"/>          
+                </h:column>
+            </h:dataTable>
+            <center>
+                <h:commandButton action="novoaluno.xhtml?faces-redirect=true" value="Adicionar novo aluno"/>
+            </center>
+        </h:form>
     </h:body>
 </html>

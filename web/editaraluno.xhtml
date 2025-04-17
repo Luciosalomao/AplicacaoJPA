@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:p="jakarta.faces.passthrough">
+    <h:head>
+        <title>Editar Dados do Aluno</title>
+    </h:head>
+    <h:body>
+        <center><h2>Editar dados do aluno</h2></center>
+        <h:form>
+            <h:outputLabel>Id:</h:outputLabel>
+            <h:inputText value="#{alunoBean.id}" p:readonly="readonly" /><br/><br/>
+            <h:outputLabel>Novo nome::</h:outputLabel><br/><br/>
+            <h:inputText value="#{alunoBean.nome}" /><br/><br/>
+            <h:commandButton value="Update" action="#{alunoBean.atualizarAluno(alunoBean)}"/>
+            <h:outputLink value="listaalunos.xhtml">Ver lista de alunos</h:outputLink>
+        </h:form>
+    </h:body>
+</html>
