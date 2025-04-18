@@ -13,13 +13,14 @@
             <h:dataTable value="#{alunoBean.listaAlunosDB()}" var="aluno">
                 <h:column>
                     <h:outputText value="#{aluno.id}"/>
+                    <h:inputHidden value="#{aluno.id}" />
                 </h:column>
                 <h:column>
                     <h:outputText value="#{aluno.nome}"/>
                 </h:column>
                 <h:column>
-                    <h:commandButton action="#(alunoBean.editarAlunoPeloId()" value="Atualizar">
-                        <f:param value="#{aluno.id}"/>
+                    <h:commandButton value="Atualizar" action="editaraluno.xhtml?faces-redirect=true">
+                        <f:param name="idAluno" value="#{aluno.id}"/>
                     </h:commandButton>
                 </h:column>
                 <h:column>

@@ -40,7 +40,7 @@ public class DatabaseOperations {
         entityManager.persist(novoAluno);
         transacao.commit();
         
-        return "listaalunos.xhtml?faces-redirect=true";
+        return "listaralunos.xhtml?faces-redirect=true";
         
     }
     
@@ -57,7 +57,7 @@ public class DatabaseOperations {
         
         transacao.commit();
         
-        return "listaalunos.xhtml?faces-redirect=true";
+        return "listaralunos.xhtml?faces-redirect=true";
     }
     
     public static String atualizarDadosAluno(int alunoId, String atualizarNomeAluno){
@@ -79,16 +79,20 @@ public class DatabaseOperations {
         return "editaraluno.xhtml";
     }
     
-   public static boolean isAlunoId(int idAluno){
-       boolean isResult = false;
-       Query queryObj = entityManager.createQuery("SELECT s FROM AlunoEntityManager s WHERE s.id=:id");
-       queryObj.setParameter("id", idAluno);
-       AlunoEntityManager selecionarIdAluno = (AlunoEntityManager) queryObj.getSingleResult();
-       if (selecionarIdAluno != null) {
-           isResult = true;
-       }
-       return isResult;
-   }
+    public static boolean isAlunoId(int idAluno){
+        boolean isResult = false;
+        try {
+            Query queryObj = entityManager.createQuery("SELECT s FROM AlunoEntityManager s WHERE s.id=:id");
+            queryObj.setParameter("id", idAluno);
+            AlunoEntityManager selecionarIdAluno = (AlunoEntityManager) queryObj.getSingleResult();
+            if (selecionarIdAluno != null) {
+                isResult = true;
+            }
+        } catch (jakarta.persistence.NoResultException e) {
+            isResult = false; 
+        }
+        return isResult;
+    }
    
    private static int getMaxAlunoId(){
        int contIdAluno = 1;
@@ -98,5 +102,16 @@ public class DatabaseOperations {
        }
        return contIdAluno;
    }
+   
+   public static AlunoEntityManager getAlunoPorId(int id) {
+    try {
+        Query query = entityManager.createQuery("SELECT a FROM AlunoEntityManager a WHERE a.id = :id");
+        query.setParameter("id", id);
+        return (AlunoEntityManager) query.getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
     
 }

@@ -1,9 +1,12 @@
 package bean;
 
+import db.AlunoEntityManager;
 import db.DatabaseOperations;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.ComponentSystemEvent;
 import jakarta.inject.Named;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -12,7 +15,7 @@ import java.util.List;
  */
 @Named("alunoBean")
 @RequestScoped
-public class AlunoBean {
+public class AlunoBean implements Serializable{
     private int id;
     private String nome;
     private String editIdAluno;
@@ -53,12 +56,19 @@ public class AlunoBean {
         return DatabaseOperations.deleteAluno(alunoId);
     }
     
-    public String atualizarAluno(AlunoBean alunoBean){
-        return DatabaseOperations.atualizarDadosAluno(Integer.parseInt(alunoBean.getEditIdAluno()), alunoBean.getNome());
+    public String atualizarAluno() {
+        return DatabaseOperations.atualizarDadosAluno(this.id, this.nome);
     }
     
-    public String editarAlunoPeloId(){
-        editIdAluno = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("SELECT *FROM ALUNO;");
-        return "editaraluno.xhtml";
+    public String editarAlunoPeloId() {
+        // só redireciona com idAluno na URL
+        return "editaraluno.xhtml?faces-redirect=true&idAluno=" + this.id;
     }
+    
+    public void carregarAluno(ComponentSystemEvent event) {
+    AlunoEntityManager aluno = DatabaseOperations.getAlunoPorId(this.id);
+    if (aluno != null) {
+        this.nome = aluno.getNome();
+    }
+}
 }
