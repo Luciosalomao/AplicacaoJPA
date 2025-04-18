@@ -11,14 +11,14 @@
         <center><h2>Editar dados do aluno</h2></center>
         <f:metadata>
             <f:viewParam name="idAluno" value="#{alunoBean.id}" />
-            <f:event type="preRenderView" listener="#{alunoBean.carregarAluno}" />
+            <f:event type="preRenderView" listener="#{alunoBean.carregarAluno}"/>
         </f:metadata>
         <h:form>
             <h:outputLabel>Id:</h:outputLabel>
-            <h:inputText value="#{alunoBean.id}" /><br/><br/>
-            <h:outputLabel>Novo nome::</h:outputLabel><br/><br/>
-            <h:inputText value="#{alunoBean.nome}" /><br/><br/>
-            <h:commandButton value="Update" action="#{alunoBean.atualizarAluno}"/>
+            <h:inputText value="#{alunoBean.id}" p:readonly="readonly"/><br/><br/>
+            <h:outputLabel>Novo nome:</h:outputLabel><br/><br/>
+            <h:inputText value="#{alunoBean.nome}"/><br/><br/>
+            <h:commandButton value="Update" action="#{alunoBean.atualizarAluno(alunoBean)}"/>
             <h:outputLink value="listaralunos.xhtml">Ver lista de alunos</h:outputLink>
         </h:form>
     </h:body>

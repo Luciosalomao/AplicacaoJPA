@@ -76,7 +76,9 @@ public class DatabaseOperations {
         }
         transacao.commit();
         
-        return "editaraluno.xhtml";
+        //return "editaraluno.xhtml";
+        return "listaralunos.xhtml?faces-redirect=true";
+
     }
     
     public static boolean isAlunoId(int idAluno){
@@ -105,7 +107,7 @@ public class DatabaseOperations {
    
    public static AlunoEntityManager getAlunoPorId(int id) {
     try {
-        Query query = entityManager.createQuery("SELECT a FROM AlunoEntityManager a WHERE a.id = :id");
+        Query query = entityManager.createQuery("SELECT s FROM AlunoEntityManager s WHERE s.id = :id");
         query.setParameter("id", id);
         return (AlunoEntityManager) query.getSingleResult();
         } catch (Exception e) {
