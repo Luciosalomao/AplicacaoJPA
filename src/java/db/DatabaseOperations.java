@@ -65,14 +65,13 @@ public class DatabaseOperations {
             transacao.begin();
         }
         
-        if(isAlunoId(alunoId)){
-            Query queryObj = entityManager.createQuery("UPDATE AlunoEntityManager s SET s.nome=:nome WHERE s.id=:id");
-            queryObj.setParameter("id", alunoId);
-            queryObj.setParameter("nome", atualizarNomeAluno);
-            int updateCount = queryObj.executeUpdate();            
-            if(updateCount > 0) {
-                System.out.println("Id: " + alunoId + " atualizado");
-            }
+        if(isAlunoId(alunoId)){          
+            
+            AlunoEntityManager alteradoAluno = new AlunoEntityManager();
+            alteradoAluno.setId(alunoId);
+            alteradoAluno.setNome(atualizarNomeAluno);
+            entityManager.merge(alteradoAluno);
+
         }
         transacao.commit();
         
